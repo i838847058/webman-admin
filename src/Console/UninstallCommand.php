@@ -11,21 +11,21 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:uninstall';
+    protected static $defaultName = 'admin:uninstall';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Uninstall the admin package';
+    protected static $defaultDescription = 'Uninstall the admin package';
 
     /**
      * Execute the console command.
      *
      * @return void
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$this->confirm('Are you sure to uninstall laravel-admin?')) {
             return;

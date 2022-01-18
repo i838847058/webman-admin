@@ -14,14 +14,14 @@ class PermissionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:permissions {--tables=}';
+    protected static $defaultName = 'admin:permissions {--tables=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'generate admin permission base on table name';
+    protected static $defaultDescription = 'generate admin permission base on table name';
 
     /**
      * Create a new command instance.
@@ -38,7 +38,7 @@ class PermissionCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $all_tables = $this->getAllTables();
 

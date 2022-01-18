@@ -12,19 +12,19 @@ class CreateUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:create-user';
+    protected static $defaultName = 'admin:create-user';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a admin user';
+    protected static $defaultDescription = 'Create a admin user';
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $userModel = config('admin.database.users_model');
         $roleModel = config('admin.database.roles_model');

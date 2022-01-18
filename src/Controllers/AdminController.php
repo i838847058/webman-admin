@@ -21,7 +21,7 @@ class AdminController extends Controller
      *
      * @var array
      */
-    protected $description = [
+    protected static $defaultDescription = [
         //        'index'  => 'Index',
         //        'show'   => 'Show',
         //        'edit'   => 'Edit',

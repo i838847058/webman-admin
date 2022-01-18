@@ -13,21 +13,21 @@ class ImportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:import {extension?}';
+    protected static $defaultName = 'admin:import {extension?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import a Laravel-admin extension';
+    protected static $defaultDescription = 'Import a Laravel-admin extension';
 
     /**
      * Execute the console command.
      *
      * @return void
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $extension = $this->argument('extension');
 

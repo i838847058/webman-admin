@@ -21,7 +21,7 @@ class Content implements Renderable
      *
      * @var string
      */
-    protected $description = ' ';
+    protected static $defaultDescription = ' ';
 
     /**
      * Page breadcrumb.

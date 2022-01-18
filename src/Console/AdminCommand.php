@@ -3,9 +3,13 @@
 namespace Shx\Admin\Console;
 
 use Shx\Admin\Admin;
-use Illuminate\Console\Command;
+use Illuminate\Console\Command as s;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class AdminCommand extends Command
 {
@@ -14,31 +18,31 @@ class AdminCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin';
+    protected static $defaultName = 'admin';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'List all admin commands';
+    protected static $defaultDescription = 'List all admin commands';
 
     /**
      * @var string
      */
     public static $logo = <<<LOGO
-    __                                __                __          _     
-   / /   ____ __________ __   _____  / /     ____ _____/ /___ ___  (_)___ 
-  / /   / __ `/ ___/ __ `/ | / / _ \/ /_____/ __ `/ __  / __ `__ \/ / __ \
- / /___/ /_/ / /  / /_/ /| |/ /  __/ /_____/ /_/ / /_/ / / / / / / / / / /
-/_____/\__,_/_/   \__,_/ |___/\___/_/      \__,_/\__,_/_/ /_/ /_/_/_/ /_/ 
+ __        __   _                                           _           _       
+ \ \      / /__| |__  _ __ ___   __ _ _ __         __ _  __| |_ __ ___ (_)_ __  
+  \ \ /\ / / _ \ '_ \| '_ ` _ \ / _` | '_ \ _____ / _` |/ _` | '_ ` _ \| | '_ \ 
+   \ V  V /  __/ |_) | | | | | | (_| | | | |_____| (_| | (_| | | | | | | | | | |
+    \_/\_/ \___|_.__/|_| |_| |_|\__,_|_| |_| shx  \__,_|\__,_|_| |_| |_|_|_| |_|
                                                                           
 LOGO;
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->line(static::$logo);
         $this->line(Admin::getLongVersion());

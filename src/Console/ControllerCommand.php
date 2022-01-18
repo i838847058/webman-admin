@@ -9,7 +9,7 @@ class ControllerCommand extends MakeCommand
      *
      * @var string
      */
-    protected $signature = 'admin:controller {model}
+    protected static $defaultName = 'admin:controller {model}
         {--title=}
         {--stub= : Path to the custom stub file. }
         {--namespace=}
@@ -20,7 +20,7 @@ class ControllerCommand extends MakeCommand
      *
      * @var string
      */
-    protected $description = 'Make admin controller from giving model';
+    protected static $defaultDescription = 'Make admin controller from giving model';
 
     /**
      * @return array|string|null

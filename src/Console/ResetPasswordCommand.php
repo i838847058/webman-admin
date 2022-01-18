@@ -12,19 +12,19 @@ class ResetPasswordCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:reset-password';
+    protected static $defaultName = 'admin:reset-password';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset password for a specific admin user';
+    protected static $defaultDescription = 'Reset password for a specific admin user';
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $userModel = config('admin.database.users_model');
 

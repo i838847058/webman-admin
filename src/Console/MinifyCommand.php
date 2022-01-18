@@ -15,14 +15,14 @@ class MinifyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:minify {--clear}';
+    protected static $defaultName = 'admin:minify {--clear}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Minify the CSS and JS';
+    protected static $defaultDescription = 'Minify the CSS and JS';
 
     /**
      * @var array
@@ -40,7 +40,7 @@ class MinifyCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         if (!class_exists(Minify\Minify::class)) {
             $this->error('To use `admin:minify` command, please install [matthiasmullie/minify] first.');

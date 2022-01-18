@@ -11,7 +11,7 @@ class FormCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'admin:form {name} 
+    protected static $defaultName = 'admin:form {name} 
         {--title=}
         {--step}
         {--namespace=}';
@@ -21,7 +21,7 @@ class FormCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Make admin form widget';
+    protected static $defaultDescription = 'Make admin form widget';
 
     /**
      * Replace the class name for the given stub.

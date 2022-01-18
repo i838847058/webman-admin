@@ -20,14 +20,14 @@ class GenerateMenuCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:generate-menu {--dry-run : Dry run}';
+    protected static $defaultName = 'admin:generate-menu {--dry-run : Dry run}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate menu items based on registered routes.';
+    protected static $defaultDescription = 'Generate menu items based on registered routes.';
 
     /**
      * Create a new command instance.
@@ -46,7 +46,7 @@ class GenerateMenuCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $prefix = config('admin.route.prefix');
         $routes = collect($this->router->getRoutes())->filter(function (Route $route) use ($prefix) {

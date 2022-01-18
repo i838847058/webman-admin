@@ -12,19 +12,19 @@ class ConfigCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:config {path?}';
+    protected static $defaultName = 'admin:config {path?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Compare the difference between the admin config file and the original';
+    protected static $defaultDescription = 'Compare the difference between the admin config file and the original';
 
     /**
      * {@inheritdoc}
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $this->argument('path') ?: 'config/admin.php';
 

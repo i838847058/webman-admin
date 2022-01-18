@@ -3,6 +3,8 @@
 namespace Shx\Admin\Console;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class InstallCommand extends Command
 {
@@ -11,14 +13,14 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:install';
+    protected static $defaultName = 'admin:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install the admin package';
+    protected static $defaultDescription = 'Install the admin package';
 
     /**
      * Install directory.
@@ -32,7 +34,7 @@ class InstallCommand extends Command
      *
      * @return void
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->initDatabase();
 

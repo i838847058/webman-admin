@@ -13,7 +13,7 @@ class MakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'admin:make {name}
+    protected static $defaultName = 'admin:make {name}
         {--model=}
         {--title=}
         {--stub= : Path to the custom stub file. }
@@ -25,7 +25,7 @@ class MakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Make admin controller';
+    protected static $defaultDescription = 'Make admin controller';
 
     /**
      * @var ResourceGenerator
@@ -47,7 +47,7 @@ class MakeCommand extends GeneratorCommand
      *
      * @return void
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->modelName = $this->getModelName();
         $this->controllerName = $this->getControllerName();

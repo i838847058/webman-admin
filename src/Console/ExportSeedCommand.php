@@ -11,7 +11,7 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:export-seed {classname=AdminTablesSeeder}
+    protected static $defaultName = 'admin:export-seed {classname=AdminTablesSeeder}
                                               {--users : add to seed users tables}
                                               {--except-fields=id,created_at,updated_at : except fields}';
 
@@ -20,14 +20,14 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Export seed a Laravel-admin database tables menu, roles and permissions';
+    protected static $defaultDescription = 'Export seed a Laravel-admin database tables menu, roles and permissions';
 
     /**
      * Execute the console command.
      *
      * @return void
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $this->argument('classname');
         $exceptFields = explode(',', $this->option('except-fields'));

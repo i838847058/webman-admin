@@ -12,7 +12,7 @@ class ActionCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'admin:action {name}
+    protected static $defaultName = 'admin:action {name}
         {--grid-batch}
         {--grid-row}
         {--form}
@@ -25,7 +25,7 @@ class ActionCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Make a admin action';
+    protected static $defaultDescription = 'Make a admin action';
 
     /**
      * Replace the class name for the given stub.

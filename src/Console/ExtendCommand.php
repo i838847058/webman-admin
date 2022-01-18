@@ -13,14 +13,14 @@ class ExtendCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:extend {extension} {--namespace=}';
+    protected static $defaultName = 'admin:extend {extension} {--namespace=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Build a Laravel-admin extension';
+    protected static $defaultDescription = 'Build a Laravel-admin extension';
 
     /**
      * @var string
