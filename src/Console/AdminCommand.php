@@ -2,11 +2,6 @@
 
 namespace Shx\Admin\Console;
 
-use Shx\Admin\Admin;
-use Illuminate\Console\Command as s;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,13 +39,13 @@ LOGO;
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->line(static::$logo);
-        $this->line(Admin::getLongVersion());
+        $output->writeln(static::$logo);
+        $output->writeln(Admin::getLongVersion());
 
         $this->comment('');
         $this->comment('Available commands:');
 
-        $this->listAdminCommands();
+        $this->listAdminCommands($output);
     }
 
     /**
@@ -58,7 +53,7 @@ LOGO;
      *
      * @return void
      */
-    protected function listAdminCommands()
+    protected function listAdminCommands(OutputInterface $output)
     {
         $commands = collect(Artisan::all())->mapWithKeys(function ($command, $key) {
             if (Str::startsWith($key, 'admin:')) {
@@ -72,7 +67,7 @@ LOGO;
 
         /** @var Command $command */
         foreach ($commands as $command) {
-            $this->line(sprintf(" %-{$width}s %s", $command->getName(), $command->getDescription()));
+            $output->writeln(sprintf(" %-{$width}s %s", $command->getName(), $command->getDescription()));
         }
     }
 

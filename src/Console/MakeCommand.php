@@ -5,6 +5,8 @@ namespace Shx\Admin\Console;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class MakeCommand extends GeneratorCommand
 {
@@ -53,7 +55,7 @@ class MakeCommand extends GeneratorCommand
         $this->controllerName = $this->getControllerName();
 
         if (!$this->modelExists()) {
-            $this->error('Model does not exists !');
+            $output->error('Model does not exists !');
 
             return false;
         }
@@ -96,7 +98,7 @@ class MakeCommand extends GeneratorCommand
      */
     protected function getModelName()
     {
-        return $this->option('model');
+        return $this->getArgument('model');
     }
 
     /**
