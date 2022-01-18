@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use Shx\Admin\Controllers\AuthController as BaseAuthController;
+
+class AuthController extends BaseAuthController
+{
+
+}

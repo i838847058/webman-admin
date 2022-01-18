@@ -1,0 +1,35 @@
+{
+  "name": "shx/webman-admin",
+  "description": "webman admin",
+  "type": "library",
+  "keywords": [
+    "webman",
+    "admin",
+    "grid",
+    "form",
+    "shx"
+  ],
+  "homepage": "https://github.com/i838847058/webman-admin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "shx",
+      "email": "i838847058@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "workerman/webman-framework": "^1.2.1",
+    "webman/console": "^1.0",
+    "symfony/dom-crawler": "~3.1|~4.0|~5.0",
+    "doctrine/dbal": "2.*|3.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Shx\\Admin\\": "src"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  }
+}
