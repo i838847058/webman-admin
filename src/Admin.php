@@ -5,6 +5,7 @@ namespace Shx\Admin;
 use Closure;
 use Shx\Admin\Auth\Database\Menu;
 use Shx\Admin\Controllers\AuthController;
+use Shx\Admin\Controllers\UserController;
 use Shx\Admin\Layout\Content;
 use Shx\Admin\Traits\HasAssets;
 use Shx\Admin\Widgets\Navbar;
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
+use Webman\Config;
+use Webman\Route;
+
 
 /**
  * Class Admin.
@@ -25,7 +29,7 @@ class Admin
      *
      * @var string
      */
-    const VERSION = '1.8.14';
+    const VERSION = '1.0.0';
 
     /**
      * @var Navbar
@@ -167,7 +171,7 @@ class Admin
             return $this->menu;
         }
 
-        $menuClass = config('admin.database.menu_model');
+        $menuClass = Config::get('admin.database.menu_model');
 
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
@@ -218,7 +222,7 @@ class Admin
      */
     public function title()
     {
-        return self::$metaTitle ? self::$metaTitle : config('admin.title');
+        return self::$metaTitle ? self::$metaTitle : Config::get('admin.title');
     }
 
     /**
@@ -252,7 +256,7 @@ class Admin
      */
     public function guard()
     {
-        $guard = config('admin.auth.guard') ?: 'admin';
+        $guard = Config::get('admin.auth.guard') ?: 'admin';
 
         return Auth::guard($guard);
     }
@@ -307,36 +311,30 @@ class Admin
     public function routes()
     {
         $attributes = [
-            'prefix' => config('admin.route.prefix'),
-            'middleware' => config('admin.route.middleware'),
+//            'prefix' => Config::get('admin.route.prefix'),
+            'middleware' => Config::get('admin.route.middleware'),
         ];
 
-        app('router')->group($attributes, function ($router) {
+        Route::group('/_admin_', function () {
 
-            /* @var \Illuminate\Support\Facades\Route $router */
-            $router->namespace('\Shx\Admin\Controllers')->group(function ($router) {
+            Route::any('/auth/users', [UserController::class,]);
+            Route::any('/auth/roles', 'RoleController');
+            Route::any('/auth/permissions', 'PermissionController')->names('admin.auth.permissions');
+            Route::any('/auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
+            Route::any('/auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
 
-                /* @var \Illuminate\Routing\Router $router */
-                $router->resource('auth/users', 'UserController')->names('admin.auth.users');
-                $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
-                $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
-                $router->resource('auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
-                $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
+            Route::post('/_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
+            Route::post('/_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
+            Route::get('/_handle_selectable_', 'HandleController@handleSelectable')->name('admin.handle-selectable');
+            Route::get('/_handle_renderable_', 'HandleController@handleRenderable')->name('admin.handle-renderable');
 
-                $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
-                $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
-                $router->get('_handle_selectable_', 'HandleController@handleSelectable')->name('admin.handle-selectable');
-                $router->get('_handle_renderable_', 'HandleController@handleRenderable')->name('admin.handle-renderable');
-            });
+            $authController = Config::get('admin.auth.controller', AuthController::class);
 
-            $authController = config('admin.auth.controller', AuthController::class);
-
-            /* @var \Illuminate\Routing\Router $router */
-            $router->get('auth/login', $authController . '@getLogin')->name('admin.login');
-            $router->post('auth/login', $authController . '@postLogin');
-            $router->get('auth/logout', $authController . '@getLogout')->name('admin.logout');
-            $router->get('auth/setting', $authController . '@getSetting')->name('admin.setting');
-            $router->put('auth/setting', $authController . '@putSetting');
+            Route::get('/auth/login', $authController . '@getLogin')->name('admin.login');
+            Route::post('/auth/login', $authController . '@postLogin');
+            Route::get('/auth/logout', $authController . '@getLogout')->name('admin.logout');
+            Route::get('/auth/setting', $authController . '@getSetting')->name('admin.setting');
+            Route::put('/auth/setting', $authController . '@putSetting');
         });
     }
 
@@ -376,7 +374,7 @@ class Admin
     {
         $this->fireBootingCallbacks();
 
-        require config('admin.bootstrap', admin_path('bootstrap.php'));
+        require Config::get('admin.bootstrap', admin_path('bootstrap.php'));
 
         $this->addAdminAssets();
 
